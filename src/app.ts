@@ -1,19 +1,29 @@
 import express, { Express } from "express";
 import loaders from "./loaders";
 import config from "./config/index";
+import Logger from "./loaders/logger";
 
-async function startServer(): Promise<void> {
+async function startServer() {
 	const app: Express = express();
 	await loaders(app);
-	app.listen(config.port, () => {
-		`Server Started At Port ${config.port}`;
+	return app.listen(config.port, () => {
+		Logger.info(`
+		################################################
+		        Starting Furniture-API-Products
+		################################################
+
+		👉  Server Listening on Port: ${config.port}
+		👉  Logging Level: ${config.logs.level}
+
+		################################################
+		`);
 	});
 }
 
 startServer()
 	.then(() => {
-		console.log("Server Started Succeccfully");
+		Logger.info("Server Start Complete");
 	})
 	.catch((e) => {
-		console.log(e.stack);
+		Logger.error(`Server Failed to Start because ${e.stack}`);
 	});
