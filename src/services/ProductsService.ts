@@ -1,6 +1,6 @@
 import { Service } from "typedi";
 
-@Service("ProductsService")
+@Service()
 export class ProductsService {
 	async getProducts() {}
 }

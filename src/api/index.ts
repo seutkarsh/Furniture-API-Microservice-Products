@@ -1,9 +1,9 @@
 import { Router } from "express";
-import login from "./routes/login";
+import products from "./routes/products";
 export default (): Router => {
 	const expressRouter = Router();
 
 	//route groups
-
+	products(expressRouter);
 	return expressRouter;
 };

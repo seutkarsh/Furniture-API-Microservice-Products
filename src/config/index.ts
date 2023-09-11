@@ -13,4 +13,13 @@ export default {
 	logs: {
 		level: procress.env.LOG_LEVEL || "silly",
 	},
+	mongo: {
+		uri: process.env.MONGODB_URI || "mongodb://localhost:27017/",
+		authDbName: process.env.MONGODB_URI_AUTH_DB_NAME || null,
+		username: process.env.MONGODB_URI_AUTH_USERNAME || null,
+		password: process.env.MONGODB_URI_AUTH_PASSWORD || null,
+		db: {
+			name: "furniture-products",
+		},
+	},
 };

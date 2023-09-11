@@ -9,14 +9,14 @@ export default (router: Router): void => {
 	//get main products and categories
 	router.get("/", async (req: Request, res: Response) => {
 		const response = new ResponseWrapper<Record<string, string>>();
-		{
-			try {
-				const data = await productService.getProducts();
-				// response.setData(data);
-			} catch (e) {
-				response.setError(e);
-				Logger.error(e);
-			}
+		try {
+			const data = await productService.getProducts();
+			// response.setData(data);
+		} catch (e) {
+			Logger.error(e);
+			// @ts-ignore
+			response.setError(e);
 		}
+		res.json({ here: "here" });
 	});
 };
