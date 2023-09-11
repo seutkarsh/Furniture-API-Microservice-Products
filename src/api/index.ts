@@ -4,6 +4,6 @@ export default (): Router => {
 	const expressRouter = Router();
 
 	//route groups
-	login(expressRouter);
+
 	return expressRouter;
 };
