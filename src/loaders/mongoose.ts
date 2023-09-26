@@ -8,11 +8,11 @@ export default async (): Promise<typeof mongoose> => {
 	};
 	const authSource = config.mongo.authDbName;
 	if (authSource) {
-		const username = config.mongo.username;
+		const user = config.mongo.username;
 		const password = config.mongo.password;
-		if (username && password) {
+		if (user && password) {
 			options.authSource = authSource;
-			options.auth = { username, password };
+			options.auth = { user, password };
 		}
 	}
 
