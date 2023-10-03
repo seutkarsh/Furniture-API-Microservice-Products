@@ -22,4 +22,12 @@ export default {
 			name: "furniture-products",
 		},
 	},
+	cdn: {
+		image: {
+			url: process.env.IMAGE_BASE_URL || "https://images.foo.com",
+		},
+		video: {
+			url: process.env.VIDEO_BASE_URL || "https://videos.foo.com",
+		},
+	},
 };
