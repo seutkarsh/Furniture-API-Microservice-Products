@@ -23,12 +23,9 @@ export interface IProductSchema {
 	supplier: string;
 }
 
-const connection: Connection = Container.get("mongoDBConnection");
 export default {
 	name: "ProductSchema",
-	model: connection.model<mongoose.Document>(
-		"ProductSchema",
-		ProductSchema,
-		"products",
-	),
+	model: Container.get<Connection>(
+		"mongoDBConnection",
+	).model<mongoose.Document>("ProductSchema", ProductSchema, "products"),
 };
