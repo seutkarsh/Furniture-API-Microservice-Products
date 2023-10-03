@@ -12,10 +12,9 @@ export class ProductsService {
 		if (!products.length)
 			throw new Error(ProductServiceErrors.NO_PRODUCTS_FOUND);
 
-		const preparedProducts: Product[] = products.map((products) => {
+		return products.map((products) => {
 			return new Product(products);
 		});
-		return preparedProducts;
 	}
 
 	async createProduct(productDetails: IProductCreationDetails) {
@@ -29,10 +28,9 @@ export class ProductsService {
 		const products: IProductSchema[] = await this.findByType(categoryType);
 		if (!products.length)
 			throw new Error(ProductServiceErrors.NO_PRODUCTS_IN_CATEGORY);
-		const preparedProducts: Product[] = products.map((products) => {
+		return products.map((products) => {
 			return new Product(products);
 		});
-		return preparedProducts;
 	}
 
 	async getDetailPageProduct(productId: string) {
