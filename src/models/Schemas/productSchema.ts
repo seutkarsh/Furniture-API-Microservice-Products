@@ -1,6 +1,5 @@
-import mongoose, { Connection, Document } from "mongoose";
+import mongoose, { Connection } from "mongoose";
 import { Container } from "typedi";
-import config from "../config";
 
 const ProductSchema = new mongoose.Schema({
 	name: String,
@@ -13,7 +12,7 @@ const ProductSchema = new mongoose.Schema({
 	supplier: String,
 });
 
-export interface IProductSchema extends Document {
+export interface IProductSchema {
 	name: string;
 	description: string;
 	banner: string;
@@ -23,9 +22,11 @@ export interface IProductSchema extends Document {
 	available: boolean;
 	supplier: string;
 }
+
+const connection: Connection = Container.get("mongoDBConnection");
 export default {
 	name: "ProductSchema",
-	model: Container.get<Connection>(config.mongo.db.name).model(
+	model: connection.model<mongoose.Document>(
 		"ProductSchema",
 		ProductSchema,
 		"products",

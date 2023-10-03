@@ -4,21 +4,23 @@ import { ResponseWrapper } from "../responses/responseWrapper";
 import { ProductsService } from "../../services/ProductService/ProductsService";
 import Logger from "../../loaders/logger";
 import { IProductCreationDetails } from "../../services/ProductService/ProductsService";
+import { IProductSchema } from "../../models/Schemas/productSchema";
+import { Document } from "mongoose";
 
 export default (router: Router): void => {
 	const productService = Container.get(ProductsService);
 	//get main products and categories
 	router.get("/", async (req: Request, res: Response) => {
-		const response = new ResponseWrapper<Record<string, string>>();
+		const response = new ResponseWrapper();
 		try {
 			const data = await productService.getProducts();
-			// response.setData(data);
+			response.setData(data);
 		} catch (e) {
-			Logger.error(e);
+			Logger.error(e.message);
 			// @ts-ignore
-			response.setError(e);
+			response.setError(e.message);
 		}
-		res.json({ here: "here" });
+		res.json(response);
 	});
 
 	router.post("/create", async (req: Request, res: Response) => {

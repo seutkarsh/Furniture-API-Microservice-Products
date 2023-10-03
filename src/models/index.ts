@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import ProductSchema from "./productSchema";
+import ProductSchema from "./Schemas/productSchema";
 
 export const models: Array<{
 	name: string;

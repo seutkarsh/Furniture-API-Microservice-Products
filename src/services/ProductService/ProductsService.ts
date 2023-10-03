@@ -1,18 +1,15 @@
-import { Inject, Service } from "typedi";
-import { Document, Model } from "mongoose";
-import { IProductSchema } from "../../models/productSchema";
+import { Container, Inject, Service } from "typedi";
+import mongoose, { Connection, Model } from "mongoose";
 
 @Service()
 export class ProductsService {
-	constructor(
-		@Inject("ProductSchema")
-		private productSchema: Model<IProductSchema & Document>,
-	) {}
-
+	private productSchema: Model<mongoose.Document> =
+		Container.get("ProductSchema");
 	async getProducts() {
 		const products = await this.productSchema.find();
 		if (!products.length)
 			throw new Error(ProductServiceErrors.NO_PRODUCTS_FOUND);
+		return products;
 	}
 
 	async createProduct(productDetails: IProductCreationDetails) {

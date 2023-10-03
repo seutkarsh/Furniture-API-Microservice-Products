@@ -1,17 +1,18 @@
-import mongoose, { ConnectOptions } from "mongoose";
+import mongoose, { Connection, ConnectOptions } from "mongoose";
 import Logger from "./logger";
 import config from "../config";
 
-export default async (): Promise<typeof mongoose> => {
+export default async (): Promise<Connection> => {
 	const options: ConnectOptions = {
 		dbName: config.mongo.db.name,
+		useUnifiedTopology: true,
 	};
 	const authSource = config.mongo.authDbName;
 	if (authSource) {
 		const user = config.mongo.username;
 		const password = config.mongo.password;
 		if (user && password) {
-			options.authSource = authSource;
+			// options.authSource = authSource;
 			options.auth = { user, password };
 		}
 	}
@@ -21,5 +22,5 @@ export default async (): Promise<typeof mongoose> => {
 			config.mongo.uri
 		} with options : ${JSON.stringify(options)}`,
 	);
-	return mongoose.connect(config.mongo.uri, options);
+	return mongoose.createConnection(config.mongo.uri, options);
 };
